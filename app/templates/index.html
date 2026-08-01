@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title%}Teoria dos Grupos{% endblock %}
+
+{% block content %}
+
+<div class="container text-center">
+    <div class="row">
+        <h1 id="principal-text"><span class="primary-text manrope-extrabold">Group</span> <span class="secondary-text manrope-medium">Theory</span></h1>
+    </div>
+    <div class="row" id="description-paragraph">
+        <p class="big-sz-text gray-text">
+            Uma ferramenta na qual o usuário insere uma tabela de operação (ordem n ≤
+            12) e são verificados automaticamente os axiomas de grupo. Se for grupo,
+            informa se é abeliano, lista a ordem de cada elemento e identifica se é
+            cíclico.
+        </p>
+    </div>
+    <div class="row">
+        <button class="btn btn-terciary manrope-extrabold big-sz-text">
+            <i class="fa-solid fa-magnifying-glass" ></i>
+            <span>Verificar uma tabela</span>
+        </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-primary inter-medium">Veja mais sobre grupos <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+</div>
+
+{% endblock %}

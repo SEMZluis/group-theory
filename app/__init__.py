@@ -3,8 +3,6 @@ from flask import Flask, render_template
 # Inicialização
 app = Flask(__name__)
 
-app.run(debug=True)
-
 # Rotas
 
 # Exibe a página principal do sistema com um formulário simples que servirá para a formação da tabela de operação.

@@ -1,0 +1,166 @@
+/* ============================================== */
+/*                VARIÁVEIS E CORES               */
+/* ============================================== */
+
+:root {
+    --primary-color: #C24141;
+    --secondary-color: #DAD6CB;
+    --terciary-color: #EFECE1;
+    --background: #F8F7F4;
+}
+
+/* 9C9374 */
+/*E1DBC4*/
+
+.primary-text {
+    color: var(--primary-color);
+}
+
+.secondary-text {
+    color: var(--secondary-color);
+}
+
+/* ============================================== */
+/*                     GERAL                      */
+/* ============================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+}
+
+body {
+    background-color: var(--background);
+    margin: 0;
+}
+
+hr {
+    background-color: var(--secondary-color);
+    border: none;
+    height: 1.3px;
+}
+
+/* ============================================== */
+/*                    LAYOUT                      */
+/* ============================================== */
+
+.container {
+    min-height: 100vh;
+    margin: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*TODO: ACHAR NOME MELHOR OU TROCAR PROPRIEDADE DE SEGMENTO*/
+#description-paragraph {
+    margin: 2rem 10rem;
+}
+
+.row {
+    display: block;
+}
+
+
+/* ============================================== */
+/*                     TEXTO                      */
+/* ============================================== */
+
+.manrope-extrabold {
+    font-family: "Manrope", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.manrope-medium {
+    font-family: "Manrope", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.inter-medium {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+#principal-text {
+    font-size: 110px;
+}
+
+.normal-sz-text {
+    font-size: 16px;
+}
+
+.big-sz-text {
+    font-size: 24px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/*TODO: Rever isso da opacidade (ou mudar a cor da variável ou tirá-la)*/
+.gray-text {
+    color: #141414;
+    opacity: 50%;
+}
+
+/* ============================================== */
+/*                    BOTÕES                      */
+/* ============================================== */
+
+.btn {
+    border-radius: 30px;
+    padding: 1em 2rem;
+    margin: 0.5em auto;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    padding: 1rem 3rem;
+    background-color: var(--primary-color);
+    color: white;
+    -webkit-font-smoothing: antialiased; 
+    transition: transform 0.3s ease;
+}
+
+.btn-terciary {
+    padding: 1rem 4rem;
+    background-color: var(--terciary-color);
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.btn-terciary:hover  {
+    box-shadow: 0px 0px 10px #9C9374;
+    transform: scale(1.1);
+}
+
+.btn-primary:hover {
+    background-color: #ac2222;
+    transform: scale(1.2);   
+}
+
+
+/* ============================================== */
+/*                    RODAPÉ                      */
+/* ============================================== */
+
+footer {
+    text-align: center; 
+    padding: 1.5rem;
+    margin-top: auto;
+    font-size: 0.875rem;
+    color: var(--primary-color);
+}
