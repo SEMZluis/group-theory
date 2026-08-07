@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title%}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <!-- FONTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,10 +22,12 @@
         {% block content %}
         {% endblock %}
     </main>
-    <hr>
     <footer>
         <p>FUNDAMENTOS MATEMÁTICOS PARA CIÊNCIA DA COMPUTAÇÃO 2</p>
         <p>Computação@UFCG</p>
     </footer>
+
+    {% block scripts %}
+    {% endblock %}
 </body>
 </html>

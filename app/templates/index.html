@@ -6,9 +6,9 @@
 
 <div class="container text-center">
     <div class="row">
-        <h1 id="principal-text"><span class="primary-text manrope-extrabold">Group</span> <span class="secondary-text manrope-medium">Theory</span></h1>
+        <h1 class="principal-text"><span class="primary-text manrope-extrabold">Group</span> <span class="secondary-text manrope-medium">Theory</span></h1>
     </div>
-    <div class="row" id="description-paragraph">
+    <div class="row description-paragraph">
         <p class="big-sz-text gray-text">
             Uma ferramenta na qual o usuário insere uma tabela de operação (ordem n ≤
             12) e são verificados automaticamente os axiomas de grupo. Se for grupo,
@@ -17,10 +17,12 @@
         </p>
     </div>
     <div class="row">
-        <button class="btn btn-terciary manrope-extrabold big-sz-text">
-            <i class="fa-solid fa-magnifying-glass" ></i>
-            <span>Verificar uma tabela</span>
-        </button>
+        <a href="{{ url_for('verifyGroup') }}">
+            <button class="btn btn-tertiary manrope-extrabold big-sz-text">
+                <i class="fa-solid fa-magnifying-glass" ></i>
+                <span>Verificar uma tabela</span>
+            </button>
+        </a>
     </div>
     <div class="row">
         <a href="{{ url_for('about') }}">

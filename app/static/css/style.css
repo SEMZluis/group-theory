@@ -4,14 +4,17 @@
 
 :root {
     --primary-color: #C24141;
+    --primary-hover: #AC2222;
     --secondary-color: #DAD6CB;
-    --terciary-color: #9C9374;
-    --lighter-terciary: #EFECE1;
+    --tertiary-color: #9C9374;
+    --tertiary-light: #EFECE1;
     --background: #F8F7F4;
+    --background-card: #F1EFE8;
+    --background-grayish: #E9E6D7;
+    --background-cold: #EAEAEA;
+    --text-gray: #76736C;
+    --text-muted: #141414;
 }
-
-/* 9C9374 */
-/*E1DBC4*/
 
 .primary-text {
     color: var(--primary-color);
@@ -21,20 +24,24 @@
     color: var(--secondary-color);
 }
 
-.terciary-text {
-    color: var(--terciary-color);
+.tertiary-text {
+    color: var(--tertiary-color);
 }
 
-.lighter-terciary-text {
-    color: var(--terciary-color);
+.tertiary-light-text {
+    color: var(--tertiary-light);
 }
 
 .cold-background {
-    background-color: #EAEAEA;
+    background-color: var(--background-cold);
 }
 
 .grayish-background {
-    background-color: #E9E6D7;
+    background-color: var(--background-grayish);
+}
+
+.white-background {
+    background-color: #FFFFFF;
 }
 
 /* ============================================== */
@@ -52,12 +59,9 @@
 body {
     background-color: var(--background);
     margin: 0;
-}
-
-hr {
-    background-color: var(--secondary-color);
-    border: none;
-    height: 1.3px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 b {
@@ -87,7 +91,11 @@ section {
 }
 
 .box-outline {
-    border: 1px solid var(--lighter-terciary);
+    border: 1px solid var(--tertiary-light);
+}
+
+.box-outline-tertiary {
+    border: 2px solid var(--tertiary-color);
 }
 
 .d-flex {
@@ -114,15 +122,19 @@ section {
     justify-content: center;
 }
 
-.flex-1-andhalf {
-    flex: 1.5;
+.justify-content-end {
+    justify-content: flex-end;
 }
 
 .flex-1 {
     flex: 1;
 }
 
-.flex-5 {
+.flex-1-5 {
+    flex: 1.5;
+}
+
+.flex-3 {
     flex: 3;
 }
 
@@ -130,28 +142,27 @@ section {
     flex: 9;
 }
 
-.justify-content-end {
-    justify-content: end;
-}
-
-/*TODO: ACHAR NOME MELHOR OU TROCAR PROPRIEDADE DE SEGMENTO*/
-#description-paragraph {
+.description-paragraph {
     margin: 2rem 10rem;
 }
 
-.m4-top {
+.m-10-horizontal {
+    margin: 0 10rem;
+}
+
+.m-4-top {
     margin-top: 4rem;
 }
 
-.m1-top {
+.m-1-top {
     margin-top: 1rem;
 }
 
-.m2-bottom {
+.m-2-bottom {
     margin-bottom: 2rem;
 }
 
-.m1-bottom {
+.m-1-bottom {
     margin-bottom: 1rem;
 }
 
@@ -204,7 +215,7 @@ section {
     font-style: normal;
 }
 
-#principal-text {
+.principal-text {
     font-size: 110px;
 }
 
@@ -212,7 +223,7 @@ section {
     line-height: 1;
 }
 
-.ln-height-1andhalf {
+.ln-height-1-5 {
     line-height: 1.5;
 }
 
@@ -236,11 +247,11 @@ section {
     font-size: 48px;
 }
 
-.extra-sz-text {
+.large-sz-text {
     font-size: 64px;
 }
 
-.extraLarge-sz-text {
+.extra-large-sz-text {
     font-size: 96px;
 }
 
@@ -248,22 +259,20 @@ section {
     text-align: center;
 }
 
-/*TODO: Rever isso da opacidade (ou mudar a cor da variável ou tirá-la)*/
 .light-gray-text {
-    color: #141414;
-    opacity: 20%;
+    color: var(--text-muted);
+    opacity: 0.2;
 }
 
 .gray-text {
-    color: #76736C;
+    color: var(--text-gray);
 }
 
 .text-divisor {
     display: flex;
     flex-direction: row;
-    /* text-align: start; */
     align-items: center; 
-    justify-content: start; 
+    justify-content: flex-start; 
     gap: 10px; 
     width: 100%;
     margin-bottom: 1rem;
@@ -295,37 +304,37 @@ section {
     background-color: var(--primary-color);
     color: white;
     -webkit-font-smoothing: antialiased; 
-    transition: transform 0.3s ease;
-}
-
-.btn-terciary {
-    padding: 1rem 4rem;
-    background-color: var(--lighter-terciary);
-    color: var(--primary-color);
-    transition: transform 0.3s ease;
-}
-
-.btn-terciary:hover  {
-    box-shadow: 0px 0px 10px #9C9374;
-    transform: scale(1.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: #ac2222;
+    background-color: var(--primary-hover);
     transform: scale(1.2);   
 }
 
+.btn-tertiary {
+    padding: 1rem 4rem;
+    background-color: var(--tertiary-light);
+    color: var(--primary-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-tertiary:hover {
+    box-shadow: 0 0 10px var(--tertiary-color);
+    transform: scale(1.1);
+}
 
 /* ============================================== */
 /*                    RODAPÉ                      */
 /* ============================================== */
 
 footer {
-    text-align: center; 
     padding: 1.5rem;
     margin-top: auto;
+    text-align: center; 
     font-size: 0.875rem;
     color: var(--primary-color);
+    border-top: 1px solid var(--secondary-color);
 }
 
 /* ============================================== */
@@ -334,20 +343,27 @@ footer {
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 25%));
-    grid-template-rows: auto 1fr auto;
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
     gap: 20px;
 }
 
-.card {
-    background-color: #F1EFE8;
+.card, .white-card {
     padding: 20px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
 }
 
-.card div {
+.card {
+    background-color: var(--background-card);
+}
+
+.white-card {
+    background-color: var(--background);
+    border: 2px solid var(--tertiary-color);
+}
+
+.card > div {
     margin: 10px 0;
 }
 
@@ -365,29 +381,126 @@ footer {
 .axiom-name {
     color: var(--primary-color);
     font-size: 20px;
-
     display: flex;
     flex: 1;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
-    
 }
 
 .card-formula {
     width: 100%;
     padding: 12px;
-
-    background-color: #E9E6D7;
+    background-color: var(--background-grayish);
     border-radius: 10px;
-
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-/*TODO: POR ENQUANTO SEM UTILIDADE*/
-.card-text {
+.card-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
+    line-height: 1.5;
+}
+
+/* ============================================== */
+/*                     INPUT                      */
+/* ============================================== */
+
+.table-input {
+    border: none;
+    background-color: var(--tertiary-light);
+    border-radius: 30px;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 50%;
+}
+
+.input-error-border {
+    border: 2px solid var(--primary-color) !important;
+}
+
+.error-text {
+    font-size: 14px;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.input-btn {
+    border: none;
+    border-radius: 30px;
+    background-color: #706F6E;
+    color: white;
+    padding: 1rem;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.input-btn:hover {
+    background-color: #4e4e4d;
+}
+
+/* ============================================== */
+/*                    TABELA                      */
+/* ============================================== */
+
+table {
+    border: none;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+}
+
+th, td:first-of-type {
+    background-color: #EAE7DA;
+    font-weight: 400;
+}
+
+td input {
+    width: 100%;
+    height: 60px;
+    padding: 6px;
+    border: none;
+    background-color: var(--background);
+    text-align: center;
+    font-size: 1em;
+}
+
+.result-banner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--background);
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.check-icon {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.order-list {
+    list-style: none;
+}
+
+.order-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--tertiary-light);
 }

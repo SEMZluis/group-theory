@@ -7,15 +7,15 @@
 <div class="container">
     <section>
         <div class="m4-top ln-height-1">
-            <p class="small-sz-text terciary-text">
+            <p class="small-sz-text tertiary-text">
                 Teoria dos Grupos
             </p>
             <div class="manrope-medium m1-top m2-bottom">
                 <h1 class="ln-height-1">
-                    <p class="bigger-sz-text terciary-text">
+                    <p class="bigger-sz-text tertiary-text">
                         O que é
                     </p>
-                    <p class="extraLarge-sz-text primary-text">
+                    <p class="extra-large-sz-text primary-text">
                         um Grupo?
                     </p>
                 </h1>
@@ -23,22 +23,22 @@
         </div>
         <!-- TODO: COLOCAR ALGUMA COISA NO FUNDO AQUI PARA FAZER O SÍMBOLO DO (G, ○)-->
         <div class="row">
-            <p class="flex-1-andhalf gray-text">
+            <p class="flex-1-5 gray-text">
                 Um grupo é uma estrutura algébrica formada por um conjunto não-vazio G 
                 munido de uma operação básica ○ que satisfaz quatro axiomas fundamentais.
                 Esses axiomas capturam a essência da simetria matemática.
             </p>
-            <p class="d-flex justify-content-end flex-1 light-gray-text dm-serif-display-regular extraLarge-sz-text">
+            <p class="d-flex justify-content-end flex-1 light-gray-text dm-serif-display-regular extra-large-sz-text">
                 (G, ○)
             </p>
         </div>
     </section>
     <section>
         <div class="align-items-center flex-column">
-            <div class="terciary-text text-divisor">
+            <div class="tertiary-text text-divisor">
                 Os quatro axiomas
             </div>
-            <div class="card-grid inria-sans-regular gray-text">
+            <div class="card-grid inria-sans-regular gray-text justify-content-center">
                 <div class="card">
                     <div class="card-top">
                         <span class="dm-serif-display-regular light-gray-text">G1</span>
@@ -107,8 +107,8 @@
             <div class="d-flex flex-1 align-items-center justify-content-center dm-serif-display-regular extra-sz-text primary-text">
                 i
             </div>
-            <div class="d-flex flex-9 flex-column ln-height-1andhalf">
-                <p class="m1-bottom">OBSERVAÇÃO</p>
+            <div class="d-flex flex-9 flex-column ln-height-1-5">
+                <p class="m-1-bottom">OBSERVAÇÃO</p>
                 <p>
                     Note que a comutatividade (a ○ b = b ○ a) não é exigida. Quando ela também 
                     vale, o grupo é chamado de grupo <b>abeliano</b> ou grupo <b>comutativo</b>. O verificador 
@@ -120,20 +120,20 @@
     <!-- TODO: COLOCAR O SÍMBOLO G = {g} NO FUNDO? -->
     <section>
         <div class="box-outline p-2rem">
-            <h2 class="w-fit-content grayish-background primary-text p-10px m1-bottom manrope-medium">
+            <h2 class="w-fit-content grayish-background primary-text p-10px m-1-bottom manrope-medium">
                 O que é um Grupo <b>Cíclico</b>?
             </h2>
-            <p class="m1-bottom small-sz-text lighter-terciary-text">
+            <p class="m-1-bottom small-sz-text tertiary-text">
                 Um grupo é cíclico se existe um único elemento que o gera inteiro
             </p>
-            <p class="m1-bottom">
+            <p class="m-1-bottom">
                 Um grupo G é chamado de cíclico quando existe algum elemento g ∈ G — chamado de gerador — cujas potências 
                 sucessivas produzem todos os elementos do grupo:
             </p>
-            <div class="m1-bottom card-formula gray-text">
+            <div class="m-1-bottom card-formula gray-text">
                 G = { g⁰, g¹, g², …, gⁿ⁻¹ }
             </div>
-            <p class="m1-bottom">
+            <p class="m-1-bottom">
                 Equivalentemente, G é cíclico se e somente se existe um elemento de ordem |G| — isto é, um elemento cuja 
                 ordem é igual ao número de elementos do grupo. Todo grupo cíclico finito de ordem n é isomorfo a ℤₙ.
             </p>
@@ -143,15 +143,15 @@
         </div>
     </section>
     <section>
-        <div class="box-outline p-2rem d-flex row ln-height-1andhalf">
-            <div class="flex-5">
-                <h2 class="w-fit-content grayish-background primary-text p-10px m1-bottom manrope-medium">
+        <div class="box-outline p-2rem d-flex row ln-height-1-5">
+            <div class="flex-3">
+                <h2 class="w-fit-content grayish-background primary-text p-10px m-1-bottom manrope-medium">
                     <b>Ordem</b> de um elemento
                 </h2>
-                <div class="m1-bottom card-formula gray-text p-1rem">
+                <div class="m-1-bottom card-formula gray-text p-1rem">
                     ord(a) = min{ n ∈ ℤ⁺ : aⁿ = e }
                 </div>
-                <p class="m1-bottom">
+                <p class="m-1-bottom">
                     A ordem de um elemento a ∈ G é o menor inteiro positivo n tal que aplicar a operação do grupo n vezes 
                     consecutivas sobre a retorna o elemento neutro e.
                 </p>
@@ -162,23 +162,23 @@
                 </p>
             </div>
             <div class="d-flex flex-1 flex-column p-1rem w-fit-content cold-background">
-                <p class="primary-text m1-bottom">PROPRIEDADES</p>
-                <div class="m1-bottom">
+                <p class="primary-text m-1-bottom">PROPRIEDADES</p>
+                <div class="m-1-bottom">
                     <p>ord(e) = 1</p> 
                     <p>O neutro sempre tem ordem 1</p>
                 </div>
                 <div class="text-divisor"></div>
-                <div class="m1-bottom">
+                <div class="m-1-bottom">
                     <p>ord(a) | |G|</p> 
                     <p>Teorema de Lagrange</p>
                 </div>
                 <div class="text-divisor"></div>
-                <div class="m1-bottom">
+                <div class="m-1-bottom">
                     <p>aᵏ = e ⟺ ord(a) | k</p> 
                     <p>Potências que retornam o elemento neutro</p>
                 </div>
                 <div class="text-divisor"></div>
-                <div class="m1-bottom">
+                <div class="m-1-bottom">
                     <p>ord(a) = ord(a⁻¹)</p> 
                     <p>Inverso tem a mesma ordem</p>
                 </div>
@@ -187,7 +187,7 @@
     </section>
     <section>
         <div>
-        <a>
+        <a href="{{ url_for('verifyGroup') }}">
             <button class="btn btn-primary inter-medium">Verificar uma tabela <i class="fa-solid fa-arrow-right"></i></button>
         </a>
     </div>

@@ -16,6 +16,6 @@ def about():
     return render_template('about.html')
 
 # Recebe e processa os dados da tabela de operação fornecida pelo usuário.
-@app.route('/verify-group', methods=['POST'])
+@app.route('/verify-group', methods=['GET', 'POST'])
 def verifyGroup():
-    pass
+    return render_template('verify.html')

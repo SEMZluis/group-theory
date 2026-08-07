@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title%}Verificando grupo{% endblock %}
+
+{% block content %}
+<div class="manrope-medium">
+    <section class="m-10-horizontal p-2rem">
+        <div>
+            <h3 class="tertiary-text manrope-medium">PASSO 1</h3>
+            <h2 class="primary-text bigger-sz-text manrope-medium">Defina os elementos</h2>
+            <p class="gray-text m-1-bottom">Insira os elementos do conjunto separados por vírgulas. Use nomes curtos como e, a, b ou 0, 1, 2, 3.</p>
+            <div class="d-flex row">
+                <input class="table-input" type="text" value="e, a, b, c" id="table-input" pattern="^\s*[^,\s]+\s*(,\s*[^,\s]+\s*)*$">
+                <button class="input-btn" id="update-button">GERAR TABELA</button>
+            </div>
+            <span id="input-error" class="error-text" style="display:none; color: var(--primary-color);"></span>
+        </div>    
+    </section>
+    <div class="text-divisor"></div>
+    <section class="m-10-horizontal p-2rem">
+        <div>
+            <h3 class="tertiary-text manrope-medium">PASSO 2</h3>
+            <h2 class="primary-text bigger-sz-text manrope-medium">Preencha a tabela</h2>
+            <p class="gray-text m-1-bottom">Cada célula representa linha ○ coluna. Preencha com elementos do conjunto {e, a, b, c}.</p>
+        </div>
+        <table class="m2-bottom">
+            <tbody id="table-body"></tbody>
+        </table>
+        <div class="d-flex flex-column">
+                <button class="input-btn m-1-bottom" id="update-button">VERIFICAR AXIOMAS</button>
+                <p class="small-sz-text gray-text">Preencha todas as células para continuar</p>
+            </div>
+    </section>
+    <div class="text-divisor"></div>
+    <section class="m-10-horizontal p-2rem">
+        <div>
+            <h3 class="tertiary-text manrope-medium">PASSO 3</h3>
+            <h2 class="primary-text bigger-sz-text manrope-medium">Resultado</h2>
+        </div>
+        <div class="row m-2-bottom">
+            <div class="result-banner">
+                <span class="check-icon">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+                <div>
+                    <h3 class="gray-text bigger-sz-text">(G, ○) é um Grupo</h3>
+                    <p class="gray-text">Todos os axiomas satisfeitos, comutatividade verificada.</p>
+                </div>
+            </div>
+            <div class="card-grid inria-sans-regular gray-text justify-content-center">
+                <div class="card">
+                    <div class="card-top">
+                        <span class="dm-serif-display-regular light-gray-text">Fechamento</span>
+                        <span class="small-fs-size primary-text">SATISFEITO</span>
+                    </div>
+                    <div class="card-bottom">
+                        <div class="card-text">
+                            <p>
+                                Todas as 16 entradas da tabela pertencem ao conjunto {e, a, b, c}. 
+                                Qualquer combinação de elementos de G via a operação permanece dentro de G.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-top">
+                        <span class="dm-serif-display-regular light-gray-text">Associatividade</span>
+                        <span class="small-fs-size primary-text">SATISFEITO</span>
+                    </div>
+                    <div class="card-bottom">
+                        <div class="card-text">
+                            <p>
+                                Todas as 64 combinações de trios (a, b, c) foram verificadas e satisfazem (a ○ b) ○ c = a ○ (b ○ c). 
+                                A ordem de agrupamento não interfere no resultado final.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-top">
+                        <span class="dm-serif-display-regular light-gray-text">Elemento Neutro</span>
+                        <span class="small-fs-size primary-text">SATISFEITO</span>
+                    </div>
+                    <div class="card-bottom">
+                        <div class="card-formula">
+                            e = e
+                        </div>
+                        <div class="card-text">
+                            <p>
+                                O elemento "e" é o neutro de G: operar qualquer a ∈ G com "e" — em qualquer ordem — retorna o próprio a. 
+                                Ele aparece na linha e coluna correspondentes como espelho dos cabeçalhos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-top">
+                        <span class="dm-serif-display-regular light-gray-text">Inversatibilidade</span>
+                        <span class="small-fs-size primary-text">SATISFEITO</span>
+                    </div>
+                    <div class="card-bottom">
+                        <div class="card-text">
+                            <p>
+                                Todo elemento de G possui um inverso dentro do próprio conjunto. 
+                                Para cada a ∈ G, existe a⁻¹ ∈ G tal que a ○ a⁻¹ = a⁻¹ ○ a = "e". Nenhum elemento fica sem par.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-grid">
+            <div class="card box-outline-tertiary white-card">
+                <div class="card-top">
+                    <span class="dm-serif-display-regular primary-text">Grupo <b>Cíclico</b></span>
+                    <span class="small-fs-size primary-text">SIM</span>
+                </div>
+                <div class="card-formula">G = ⟨1⟩ · ord(1) = 4</div>
+                <div class="card-text">
+                    <p>O elemento 1 é um gerador de G.</p>
+                </div>
+            </div>
+            <div class="card white-card">
+                <div class="card-top">
+                    <span class="dm-serif-display-regular primary-text"><b>Ordem</b> dos elementos</span>
+                </div>
+                <ul class="order-list">
+                    <li><span>0</span><span class="gray-text">ord = 1</span></li>
+                    <li><span>1</span><span class="primary-text">gerador · ord = 4</span></li>
+                    <li><span>2</span><span class="gray-text">ord = 2</span></li>
+                    <li><span>3</span><span class="primary-text">gerador · ord = 4</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/table.js') }}" type="module"></script>
+{% endblock %}
+
+{% endblock %}
