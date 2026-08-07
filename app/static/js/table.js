@@ -3,19 +3,28 @@ const updateButton = document.getElementById("update-button")
 const errorSpan = document.getElementById("input-error")
 const inputPattern = /^\s*[^,\s]+\s*(,\s*[^,\s]+\s*)*$/;
 
-function makeTable(input) {
+function makeTable(input, tabelaExistente = null) {
     const tableBody = document.getElementById("table-body")
     tableBody.innerHTML = ""
 
     let headerRow = document.createElement('tr')
 
-    let emptyTh = document.createElement("th")
-    emptyTh.innerHTML = "○"
-    headerRow.appendChild(emptyTh)
+    let cornerTh = document.createElement("th")
+    let cornerInput = document.createElement("input")
+    cornerInput.type = "hidden"
+    cornerInput.name = "linha_0"
+    cornerInput.value = "○"
+    cornerTh.appendChild(cornerInput)
+    cornerTh.appendChild(document.createTextNode("○"))
+    headerRow.appendChild(cornerTh)
 
     for (let h = 0; h < input.length; h++) {
         let th = document.createElement("th")
-        th.innerHTML = input[h]
+        let txt = document.createElement("input")
+        txt.classList.add("input-head", "manrope-medium")
+        txt.name = "linha_0"
+        txt.value = input[h]
+        th.appendChild(txt)
         headerRow.appendChild(th)
     }
 
@@ -23,27 +32,34 @@ function makeTable(input) {
 
     for (let i = 0; i < input.length; i++) {
         let tr = document.createElement("tr")
-        let firstTxt = document.createElement("td")
-        firstTxt.innerHTML = input[i]
-        tr.appendChild(firstTxt)
+        const rowName = `linha_${i + 1}`
 
-        for(let j = 0; j < input.length; j++) {
+        let firstTd = document.createElement("td")
+        let labelInput = document.createElement("input")
+        labelInput.type = "hidden"
+        labelInput.name = rowName
+        labelInput.value = input[i]
+        firstTd.appendChild(labelInput)
+        firstTd.appendChild(document.createTextNode(input[i]))
+        tr.appendChild(firstTd)
+
+        for (let j = 0; j < input.length; j++) {
             let td = document.createElement("td")
             let txt = document.createElement("input")
             txt.type = "text"
-            txt.name = `${i}#${j}`
-            txt.id = `${i}#${j}`
+            txt.name = rowName
+            if (tabelaExistente && tabelaExistente[i] && tabelaExistente[i][j] !== undefined) {
+                txt.value = tabelaExistente[i][j]
+            }
             td.appendChild(txt)
             tr.appendChild(td)
         }
 
-        tableBody.appendChild(tr)   
+        tableBody.appendChild(tr)
     }
-    
 }
 
-//Deve fazer as verificações para saber se a tabela pode ser feita
-function updateTable() {
+function updateTable(tabelaExistente = null) {
     const rawValue = tableInput.value
 
     if (!inputPattern.test(rawValue)) {
@@ -52,10 +68,10 @@ function updateTable() {
         tableInput.classList.add("input-error-border")
         return
     }
-    
+
     errorSpan.style.display = "none"
     tableInput.classList.remove("input-error-border")
-    
+
     const inputValue = rawValue.replace(/\s+/g, '').split(",");
 
     if (inputValue.length > 12) {
@@ -68,10 +84,17 @@ function updateTable() {
     errorSpan.style.display = "none"
     tableInput.classList.remove("input-error-border")
 
-    makeTable(inputValue)
-    
+    makeTable(inputValue, tabelaExistente)
 }
 
 updateButton.addEventListener("click", () => updateTable())
 
-updateTable()
+if (window.matrizExistente) {
+    const conjuntoExistente = window.matrizExistente[0].slice(1)
+    const tabelaExistente = window.matrizExistente.slice(1).map(linha => linha.slice(1))
+    tableInput.value = conjuntoExistente.join(", ")
+    updateTable(tabelaExistente)
+} else {
+    tableInput.value = "e, a, b, c"
+    updateTable()
+}

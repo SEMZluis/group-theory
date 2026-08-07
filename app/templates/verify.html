@@ -10,28 +10,33 @@
             <h2 class="primary-text bigger-sz-text manrope-medium">Defina os elementos</h2>
             <p class="gray-text m-1-bottom">Insira os elementos do conjunto separados por vírgulas. Use nomes curtos como e, a, b ou 0, 1, 2, 3.</p>
             <div class="d-flex row">
-                <input class="table-input" type="text" value="e, a, b, c" id="table-input" pattern="^\s*[^,\s]+\s*(,\s*[^,\s]+\s*)*$">
+                <input class="table-input" type="text" id="table-input" pattern="^\s*[^,\s]+\s*(,\s*[^,\s]+\s*)*$">
                 <button class="input-btn" id="update-button">GERAR TABELA</button>
             </div>
             <span id="input-error" class="error-text" style="display:none; color: var(--primary-color);"></span>
         </div>    
     </section>
     <div class="text-divisor"></div>
-    <section class="m-10-horizontal p-2rem">
-        <div>
-            <h3 class="tertiary-text manrope-medium">PASSO 2</h3>
-            <h2 class="primary-text bigger-sz-text manrope-medium">Preencha a tabela</h2>
-            <p class="gray-text m-1-bottom">Cada célula representa linha ○ coluna. Preencha com elementos do conjunto {e, a, b, c}.</p>
-        </div>
-        <table class="m2-bottom">
-            <tbody id="table-body"></tbody>
-        </table>
-        <div class="d-flex flex-column">
-                <button class="input-btn m-1-bottom" id="update-button">VERIFICAR AXIOMAS</button>
+    <form action="" method="POST">
+        <section class="m-10-horizontal p-2rem">
+            <div>
+                <h3 class="tertiary-text manrope-medium">PASSO 2</h3>
+                <h2 class="primary-text bigger-sz-text manrope-medium">Preencha a tabela</h2>
+                <p class="gray-text m-1-bottom">Cada célula representa linha ○ coluna. Preencha com elementos do conjunto {e, a, b, c}.</p>
+            </div>
+            <table class="m-2-bottom">
+                <tbody id="table-body"></tbody>
+            </table>
+            <div class="d-flex flex-column">
+                <input class="input-btn m-1-bottom" type="submit" value="VERIFICAR AXIOMAS">
                 <p class="small-sz-text gray-text">Preencha todas as células para continuar</p>
             </div>
-    </section>
+        </section>
+    </form>
     <div class="text-divisor"></div>
+
+    {% if resultado %}
+    {% set eh_abeliano = eh_grupo and not resultado.comutatividade%}
     <section class="m-10-horizontal p-2rem">
         <div>
             <h3 class="tertiary-text manrope-medium">PASSO 3</h3>
@@ -40,104 +45,174 @@
         <div class="row m-2-bottom">
             <div class="result-banner">
                 <span class="check-icon">
-                    <i class="fa-solid fa-check"></i>
+                    <i class="fa-solid {{ 'fa-check' if eh_grupo else 'fa-xmark'}}"></i>
                 </span>
+                {% if eh_grupo %}
                 <div>
-                    <h3 class="gray-text bigger-sz-text">(G, ○) é um Grupo</h3>
-                    <p class="gray-text">Todos os axiomas satisfeitos, comutatividade verificada.</p>
+                    <h3 class="gray-text bigger-sz-text">(G, ○) é um Grupo{{' Abeliano' if eh_abeliano}}</h3>
+                    <p class="gray-text">Todos os axiomas satisfeitos{{', comutatividade verificada' if eh_abeliano}}.</p>
                 </div>
+                {% else %}
+                <div>
+                    <h3 class="gray-text bigger-sz-text">(G, ○) não é um Grupo</h3>                
+                </div>
+                {% endif %}
             </div>
             <div class="card-grid inria-sans-regular gray-text justify-content-center">
                 <div class="card">
                     <div class="card-top">
                         <span class="dm-serif-display-regular light-gray-text">Fechamento</span>
-                        <span class="small-fs-size primary-text">SATISFEITO</span>
+                        <span class="small-fs-size primary-text">{{'FALHOU' if resultado.fechamento else 'SATISFEITO'}}</span>
                     </div>
                     <div class="card-bottom">
                         <div class="card-text">
+                            {% if resultado.fechamento %}
+                            <div class="card-formula">
+                                ∀ a, b ∈ G : b ○ a = "r" ∉ G
+                            </div>
                             <p>
-                                Todas as 16 entradas da tabela pertencem ao conjunto {e, a, b, c}. 
+                                Elementos fora do conjunto encontrados na tabela: {{ resultado.fechamento|unique|join(', ') }}.
+                            </p>
+                            {% else %}
+                            <p>
+                                Todas as entradas da tabela pertencem ao conjunto {{ '{' }}{{ conjunto|join(', ') }}{{ '}' }}. 
                                 Qualquer combinação de elementos de G via a operação permanece dentro de G.
                             </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-top">
                         <span class="dm-serif-display-regular light-gray-text">Associatividade</span>
-                        <span class="small-fs-size primary-text">SATISFEITO</span>
+                        <span class="small-fs-size primary-text">{{'FALHOU' if resultado.associatividade else 'SATISFEITO'}}</span>
                     </div>
                     <div class="card-bottom">
                         <div class="card-text">
+                            {% if resultado.associatividade %}
+                            <div class="card-formula">
+                                (e ○ e) ○ e = a ≠ e ○ (e ○ e) = c
+                            </div>
                             <p>
-                                Todas as 64 combinações de trios (a, b, c) foram verificadas e satisfazem (a ○ b) ○ c = a ○ (b ○ c). 
+                                Falhou para o trio ({{ resultado.associatividade[0][0] }}, {{ resultado.associatividade[0][1] }}, {{ resultado.associatividade[0][2] }})
+                            </p>
+                            {% else %}
+                            <p>
+                                Todas as combinações de {{ conjunto|length ** 3 }} foram verificadas e satisfazem (a ○ b) ○ c = a ○ (b ○ c). 
                                 A ordem de agrupamento não interfere no resultado final.
                             </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-top">
                         <span class="dm-serif-display-regular light-gray-text">Elemento Neutro</span>
-                        <span class="small-fs-size primary-text">SATISFEITO</span>
+                        <span class="small-fs-size primary-text">{{'FALHOU' if not resultado.identidade else 'SATISFEITO'}}</span>
                     </div>
                     <div class="card-bottom">
+                        {% if resultado.identidade %}
                         <div class="card-formula">
                             e = e
                         </div>
                         <div class="card-text">
                             <p>
-                                O elemento "e" é o neutro de G: operar qualquer a ∈ G com "e" — em qualquer ordem — retorna o próprio a. 
+                                O elemento "{{ resultado.identidade }}" é o neutro de G: operar qualquer a ∈ G com "{{ resultado.identidade }}" — em qualquer ordem — retorna o próprio a. 
                                 Ele aparece na linha e coluna correspondentes como espelho dos cabeçalhos.
                             </p>
                         </div>
+                        {% else %}
+                        <div class="card-formula">
+                            Nenhum elemento neutro encontrado
+                        </div>
+                        <div class="card-text">
+                            <p>
+                                Nenhum elemento do conjunto satisfaz simultaneamente a ○ e = a e e ○ a = a para todo a ∈ G. Um elemento
+                                neutro precisaria replicar exatamente a ordem dos elementos nos cabeçalhos, tanto em sua linha quanto em sua coluna.
+                            </p>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-top">
                         <span class="dm-serif-display-regular light-gray-text">Inversatibilidade</span>
-                        <span class="small-fs-size primary-text">SATISFEITO</span>
+                        <span class="small-fs-size primary-text">{{'FALHOU' if resultado.inverso else 'SATISFEITO'}}</span>
                     </div>
                     <div class="card-bottom">
+                        {% if resultado.inverso %}
+                        <div class="card-text">
+                            <p>
+                                Sem inverso encontrado para: {{ resultado.inverso|join(', ') }}
+                            </p>
+                        </div>
+                        {% else %}
                         <div class="card-text">
                             <p>
                                 Todo elemento de G possui um inverso dentro do próprio conjunto. 
                                 Para cada a ∈ G, existe a⁻¹ ∈ G tal que a ○ a⁻¹ = a⁻¹ ○ a = "e". Nenhum elemento fica sem par.
                             </p>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
+        {% if eh_grupo %}
         <div class="card-grid">
             <div class="card box-outline-tertiary white-card">
                 <div class="card-top">
                     <span class="dm-serif-display-regular primary-text">Grupo <b>Cíclico</b></span>
-                    <span class="small-fs-size primary-text">SIM</span>
+                    <span class="small-fs-size primary-text">{{ 'SIM' if ciclo else 'NÃO' }}</span>
                 </div>
-                <div class="card-formula">G = ⟨1⟩ · ord(1) = 4</div>
+                {% if ciclo %}
+                <div class="card-formula">G = ⟨{{ ciclo[0] }}⟩ · ord({{ ciclo[0] }}) = {{ conjunto|length }}</div>
                 <div class="card-text">
-                    <p>O elemento 1 é um gerador de G.</p>
+                    <p>
+                        O elemento {{ ciclo[0] }} é um gerador de G
+                        {%- if ciclo|length > 1 %}, assim como {{ ciclo[1:]|join(', ') }}{% endif -%}.
+                        Suas potências sucessivas percorrem todos os {{ conjunto|length }} elementos do grupo antes de retornar ao neutro.
+                    </p>
                 </div>
+                {% else %}
+                <div class="card-text">
+                    <p>
+                        Nenhum elemento possui ordem igual a |G| = {{ conjunto|length }}. Sem um gerador,
+                        G não pode ser expresso como potências de um único elemento — não é cíclico.
+                    </p>
+                </div>
+                {% endif %}
             </div>
             <div class="card white-card">
                 <div class="card-top">
                     <span class="dm-serif-display-regular primary-text"><b>Ordem</b> dos elementos</span>
                 </div>
                 <ul class="order-list">
-                    <li><span>0</span><span class="gray-text">ord = 1</span></li>
-                    <li><span>1</span><span class="primary-text">gerador · ord = 4</span></li>
-                    <li><span>2</span><span class="gray-text">ord = 2</span></li>
-                    <li><span>3</span><span class="primary-text">gerador · ord = 4</span></li>
+                    {% for elemento in conjunto %}
+                    <li>
+                        <span>{{ elemento }}</span>
+                        <span class="{{ 'primary-text' if elemento in ciclo else 'gray-text' }}">
+                            {{ 'gerador · ' if elemento in ciclo }}ord = {{ ordens[elemento] }}
+                        </span>
+                    </li>
+                    {% endfor %}
                 </ul>
+                <p class="small-sz-text gray-text">
+                    Pelo Teorema de Lagrange, a ordem de cada elemento divide |G| = {{ conjunto|length }}.
+                </p>
             </div>
         </div>
+        {% endif %}
     </section>
+    {% endif %}
 </div>
 
 
 
 {% block scripts %}
+<script>
+    window.matrizExistente = {{ matriz|tojson if matriz else 'null' }}
+</script>
 <script src="{{ url_for('static', filename='js/table.js') }}" type="module"></script>
 {% endblock %}
 
