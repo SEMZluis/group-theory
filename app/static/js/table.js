@@ -3,6 +3,12 @@ const updateButton = document.getElementById("update-button")
 const errorSpan = document.getElementById("input-error")
 const inputPattern = /^\s*[^,\s]+\s*(,\s*[^,\s]+\s*)*$/;
 
+/**
+ * Constrói a estrutura da tabela HTML no elemento `#table-body`.]
+ * 
+ * @param {string[]} input - Lista com os nomes dos elementos do conjunto.
+ * @param {string[][]} [tabelaExistente=null] - Matriz com os valores já salvos/preenchidos.
+ */
 function makeTable(input, tabelaExistente = null) {
     const tableBody = document.getElementById("table-body")
     tableBody.innerHTML = ""
@@ -58,7 +64,12 @@ function makeTable(input, tabelaExistente = null) {
         tableBody.appendChild(tr)
     }
 }
-
+/**
+ * Valida o texto digitado, aplica as restrições de formato/tamanho e solicita a montagem da tabela.
+ * 
+ * @param {string[][]} [tabelaExistente=null] - Matriz contendo a tabela de operação.
+ * @returns {void} 
+ */
 function updateTable(tabelaExistente = null) {
     const rawValue = tableInput.value
 
@@ -87,8 +98,16 @@ function updateTable(tabelaExistente = null) {
     makeTable(inputValue, tabelaExistente)
 }
 
+// Event Listeners e Inicialização
+
 updateButton.addEventListener("click", () => updateTable())
 
+
+/**
+ * Verifica se já existe uma matriz previamente carregada.
+ * Caso exista, preenche os campos e monta a tabela. 
+ * Se não, inicializa com o grupo padrão `{e, a, b, c}`.
+ */
 if (window.matrizExistente) {
     const conjuntoExistente = window.matrizExistente[0].slice(1)
     const tabelaExistente = window.matrizExistente.slice(1).map(linha => linha.slice(1))
