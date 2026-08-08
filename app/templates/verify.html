@@ -71,9 +71,6 @@
                     <div class="card-bottom">
                         <div class="card-text">
                             {% if fechamento_status == 'FALHA' %}
-                            <div class="card-formula">
-                                ∀ a, b ∈ G : b ○ a = "r" ∉ G
-                            </div>
                             <p>
                                 Elementos fora do conjunto encontrados na tabela: {{ resultado.fechamento|unique|join(', ') }}.
                             </p>
@@ -95,7 +92,11 @@
                         <div class="card-text">
                             {% if associatividade_status == 'FALHA' %}
                             <div class="card-formula">
-                                (e ○ e) ○ e = a ≠ e ○ (e ○ e) = c
+                                <div class="card-formula">
+                                    ({{ resultado.associatividade[0][0] }} ○ {{ resultado.associatividade[0][1] }}) ○ {{ resultado.associatividade[0][2] }}
+                                    ≠
+                                    {{ resultado.associatividade[0][0] }} ○ ({{ resultado.associatividade[0][1] }} ○ {{ resultado.associatividade[0][2] }})
+                                </div>
                             </div>
                             <p>
                                 Falhou para o trio ({{ resultado.associatividade[0][0] }}, {{ resultado.associatividade[0][1] }}, {{ resultado.associatividade[0][2] }})
