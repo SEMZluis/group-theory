@@ -66,12 +66,13 @@ def associatividade(tabela, conjunto):
 
 def identidade(tabela, conjunto):
     """
-    Verifica se existe uma linha específica na tabela que seja igual ao
+    Verifica se existe uma linha e coluna específicas na tabela que sejam iguais ao
     conjunto. Retorna o elemento do conjunto correspondente ao elemento
-    gerador da linha (identidade).
+    gerador da linha e da coluna (identidade).
     """
     for id, linha in enumerate(tabela):
-        if linha == conjunto:
+        coluna = [tabela[k][id] for k in range(len(conjunto))]
+        if linha == conjunto and coluna == conjunto:
             return conjunto[id]
     return False
 
@@ -123,7 +124,7 @@ def grupo(tabela_completa):
     conjunto = extrair_conjunto(tabela_completa)
     tabela = extrair_tabela(tabela_completa)
 
-    resultado = {"fechamento": [], "associatividade": [], "identidade": None, "inverso": [], "comutatividade": []}
+    resultado = {"fechamento": None, "associatividade": None, "identidade": None, "inverso": None, "comutatividade": None}
 
     resultado["fechamento"] = fechamento(tabela, conjunto)
     if resultado["fechamento"]:
