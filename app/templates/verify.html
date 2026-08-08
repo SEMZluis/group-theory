@@ -33,10 +33,14 @@
             </div>
         </section>
     </form>
-    <div class="text-divisor"></div>
-
     {% if resultado %}
+    {% set fechamento_status = 'PULADO' if resultado.fechamento is none else ('FALHA' if resultado.fechamento else 'SATISFEITO')%}
+    {% set associatividade_status = 'PULADO' if resultado.associatividade is none else ('FALHA' if resultado.associatividade else 'SATISFEITO')%}
+    {% set identidade_status = 'PULADO' if resultado.identidade is none else ('FALHA' if not resultado.identidade else 'SATISFEITO')%}
+    {% set inverso_status = 'PULADO' if resultado.inverso is none else ('FALHA' if resultado.inverso else 'SATISFEITO')%}
     {% set eh_abeliano = eh_grupo and not resultado.comutatividade%}
+
+    <div class="text-divisor"></div>
     <section class="m-10-horizontal p-2rem">
         <div>
             <h3 class="tertiary-text manrope-medium">PASSO 3</h3>
@@ -62,11 +66,11 @@
                 <div class="card">
                     <div class="card-top">
                         <span class="dm-serif-display-regular light-gray-text">Fechamento</span>
-                        <span class="small-fs-size primary-text">{{'FALHOU' if resultado.fechamento else 'SATISFEITO'}}</span>
+                        <span class="small-fs-size primary-text">{{fechamento_status}}</span>
                     </div>
                     <div class="card-bottom">
                         <div class="card-text">
-                            {% if resultado.fechamento %}
+                            {% if fechamento_status == 'FALHA' %}
                             <div class="card-formula">
                                 ∀ a, b ∈ G : b ○ a = "r" ∉ G
                             </div>
@@ -85,22 +89,26 @@
                 <div class="card">
                     <div class="card-top">
                         <span class="dm-serif-display-regular light-gray-text">Associatividade</span>
-                        <span class="small-fs-size primary-text">{{'FALHOU' if resultado.associatividade else 'SATISFEITO'}}</span>
+                        <span class="small-fs-size {{'gray-text' if associatividade_status == 'PULADO' else 'primary-text'}}">{{associatividade_status}}</span>
                     </div>
                     <div class="card-bottom">
                         <div class="card-text">
-                            {% if resultado.associatividade %}
+                            {% if associatividade_status == 'FALHA' %}
                             <div class="card-formula">
                                 (e ○ e) ○ e = a ≠ e ○ (e ○ e) = c
                             </div>
                             <p>
                                 Falhou para o trio ({{ resultado.associatividade[0][0] }}, {{ resultado.associatividade[0][1] }}, {{ resultado.associatividade[0][2] }})
                             </p>
-                            {% else %}
+                            {% elif associatividade_status == 'SATISFEITO' %}
                             <p>
                                 Todas as combinações de {{ conjunto|length ** 3 }} foram verificadas e satisfazem (a ○ b) ○ c = a ○ (b ○ c). 
                                 A ordem de agrupamento não interfere no resultado final.
                             </p>
+                            {% else %}
+                            <div class="card-formula primary-text">
+                                Requer fechamento
+                            </div>
                             {% endif %}
                         </div>
                     </div>
@@ -108,12 +116,12 @@
                 <div class="card">
                     <div class="card-top">
                         <span class="dm-serif-display-regular light-gray-text">Elemento Neutro</span>
-                        <span class="small-fs-size primary-text">{{'FALHOU' if not resultado.identidade else 'SATISFEITO'}}</span>
+                        <span class="small-fs-size {{'gray-text' if identidade_status == 'PULADO' else 'primary-text'}}">{{identidade_status}}</span>
                     </div>
                     <div class="card-bottom">
-                        {% if resultado.identidade %}
+                        {% if identidade_status == 'SATISFEITO' %}
                         <div class="card-formula">
-                            e = e
+                            e = {{ resultado.identidade }}
                         </div>
                         <div class="card-text">
                             <p>
@@ -121,7 +129,7 @@
                                 Ele aparece na linha e coluna correspondentes como espelho dos cabeçalhos.
                             </p>
                         </div>
-                        {% else %}
+                        {% elif identidade_status == 'FALHA' %}
                         <div class="card-formula">
                             Nenhum elemento neutro encontrado
                         </div>
@@ -131,27 +139,35 @@
                                 neutro precisaria replicar exatamente a ordem dos elementos nos cabeçalhos, tanto em sua linha quanto em sua coluna.
                             </p>
                         </div>
+                        {% else %}
+                        <div class="card-formula primary-text">
+                            Requer fechamento e associatividade
+                        </div>
                         {% endif %}
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-top">
                         <span class="dm-serif-display-regular light-gray-text">Inversatibilidade</span>
-                        <span class="small-fs-size primary-text">{{'FALHOU' if resultado.inverso else 'SATISFEITO'}}</span>
+                        <span class="small-fs-size {{'gray-text' if inverso_status == 'PULADO' else 'primary-text'}}">{{inverso_status}}</span>
                     </div>
                     <div class="card-bottom">
-                        {% if resultado.inverso %}
+                        {% if inverso_status == 'FALHA' %}
                         <div class="card-text">
                             <p>
                                 Sem inverso encontrado para: {{ resultado.inverso|join(', ') }}
                             </p>
                         </div>
-                        {% else %}
+                        {% elif inverso_status == 'SATISFEITO' %}
                         <div class="card-text">
                             <p>
                                 Todo elemento de G possui um inverso dentro do próprio conjunto. 
                                 Para cada a ∈ G, existe a⁻¹ ∈ G tal que a ○ a⁻¹ = a⁻¹ ○ a = "e". Nenhum elemento fica sem par.
                             </p>
+                        </div>
+                        {% else %}
+                        <div class="card-formula primary-text">
+                            Requer elemento neutro
                         </div>
                         {% endif %}
                     </div>
